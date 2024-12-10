@@ -6,6 +6,8 @@ import com.esocial.script.generator.service.ScriptGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 @RestController
 @RequestMapping("/script")
 public class ScriptGeneratorController {
@@ -16,5 +18,10 @@ public class ScriptGeneratorController {
     @PostMapping("/generate")
     public String generateScript(@RequestBody ViewData viewData, @RequestBody DbScript dbScript) {
         return scriptGeneratorService.generateScript(dbScript, viewData);
+    }
+
+    @PostMapping("/download")
+    public void downloadScript(@RequestBody ViewData viewData, @RequestBody DbScript dbScript) throws IOException {
+        scriptGeneratorService.saveToFile(dbScript, viewData);
     }
 }

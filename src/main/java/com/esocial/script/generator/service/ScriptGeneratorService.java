@@ -43,12 +43,8 @@ public class ScriptGeneratorService {
             String orclScript = generateOracleScript(viewData);
             String mssqlScript = generateMssqlScript(viewData);
 
-            if (orclScript != null) {
-                script.append("<orcl xml:space=\"preserve\"><![CDATA[").append(orclScript).append("]]></orcl>\n");
-            }
-            if (mssqlScript != null) {
-                script.append("<mssql xml:space=\"preserve\"><![CDATA[").append(mssqlScript).append("]]></mssql>\n");
-            }
+            script.append("<orcl xml:space=\"preserve\"><![CDATA[").append(orclScript).append("]]></orcl>\n");
+            script.append("<mssql xml:space=\"preserve\"><![CDATA[").append(mssqlScript).append("]]></mssql>\n");
         }
 
         script.append("</dbscript>\n");
