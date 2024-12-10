@@ -43,7 +43,7 @@ public class ScriptGeneratorController {
         return scriptGeneratorService.generateScript(dbScript, viewData);
     }
 
-    @PostMapping("/download")
+    @GetMapping("/download")
     public void downloadScript(@RequestBody NewScriptDTO newScriptDTO) throws IOException {
         DbScript dbScript = new DbScript();
         ViewData viewData = new ViewData();
@@ -67,7 +67,14 @@ public class ScriptGeneratorController {
         viewData.setNomeJson(newScriptDTO.getNomeJson());
         viewData.setTiposCampos(newScriptDTO.getTiposCampos());
 
-        scriptGeneratorService.saveToFile(dbScript, viewData);
+        try {
+            scriptGeneratorService.saveToFile(dbScript, viewData);
+        } catch (IOException e) {
+            System.err.println("Erro ao salvar o arquivo: " + e.getMessage());
+            e.printStackTrace();
+            throw e;
+        }
+
     }
 
     @GetMapping("/test-deploy")
