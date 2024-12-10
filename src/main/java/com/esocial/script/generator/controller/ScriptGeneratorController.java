@@ -24,4 +24,9 @@ public class ScriptGeneratorController {
     public void downloadScript(@RequestBody ViewData viewData, @RequestBody DbScript dbScript) throws IOException {
         scriptGeneratorService.saveToFile(dbScript, viewData);
     }
+
+    @GetMapping("/test-deploy")
+    public String testDeploy(@RequestParam(defaultValue = "User") String name) {
+        return "Deploy test successful! Hello, " + name + "!";
+    }
 }
