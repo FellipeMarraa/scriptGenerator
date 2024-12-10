@@ -29,9 +29,9 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .anyRequest().permitAll() // Permite acesso a qualquer endpoint
+                        .anyRequest().permitAll()
                 )
-                .csrf().disable() // Desabilita CSRF caso necessário para APIs REST
+                .csrf().disable()
                 .httpBasic(Customizer.withDefaults());
         return http.build();
     }
