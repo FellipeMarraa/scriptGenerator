@@ -1,6 +1,5 @@
 package com.esocial.script.generator.model;
 
-import java.util.List;
 import java.util.Map;
 
 public class ViewData {
@@ -8,7 +7,6 @@ public class ViewData {
     private String tabelaPai;
     private String nomeTabela;
     private String nomeView;
-    private List<String> campos;  // Lista de campos
     private String nomeEvento;
     private String nomeJson;
     private Map<String, String> tiposCampos; // Adicionado: Mapa de tipos dos campos
@@ -36,14 +34,6 @@ public class ViewData {
 
     public void setNomeView(String nomeView) {
         this.nomeView = nomeView;
-    }
-
-    public List<String> getCampos() {
-        return campos;
-    }
-
-    public void setCampos(List<String> campos) {
-        this.campos = campos;
     }
 
     public String getNomeEvento() {

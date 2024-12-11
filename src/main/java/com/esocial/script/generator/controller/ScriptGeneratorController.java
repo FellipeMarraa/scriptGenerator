@@ -25,7 +25,7 @@ public class ScriptGeneratorController {
         dbScript.setObjeto(newScriptDTO.getObjeto());
         dbScript.setTipo(newScriptDTO.getTipo());
         dbScript.setOrdem(newScriptDTO.getOrdem());
-        dbScript.setTabela(newScriptDTO.getTabela());
+        dbScript.setTabela("");
         dbScript.setObjetivo(newScriptDTO.getObjetivo());
         dbScript.setExecutar(newScriptDTO.getExecutar());
         dbScript.setAutor(newScriptDTO.getAutor());
@@ -35,7 +35,6 @@ public class ScriptGeneratorController {
         viewData.setTabelaPai(newScriptDTO.getTabelaPai());
         viewData.setNomeTabela(newScriptDTO.getNomeTabela());
         viewData.setNomeView(newScriptDTO.getNomeView());
-        viewData.setCampos(newScriptDTO.getCampos());
         viewData.setNomeEvento(newScriptDTO.getNomeEvento());
         viewData.setNomeJson(newScriptDTO.getNomeJson());
         viewData.setTiposCampos(newScriptDTO.getTiposCampos());
@@ -62,7 +61,6 @@ public class ScriptGeneratorController {
         viewData.setTabelaPai(newScriptDTO.getTabelaPai());
         viewData.setNomeTabela(newScriptDTO.getNomeTabela());
         viewData.setNomeView(newScriptDTO.getNomeView());
-        viewData.setCampos(newScriptDTO.getCampos());
         viewData.setNomeEvento(newScriptDTO.getNomeEvento());
         viewData.setNomeJson(newScriptDTO.getNomeJson());
         viewData.setTiposCampos(newScriptDTO.getTiposCampos());

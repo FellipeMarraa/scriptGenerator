@@ -1,6 +1,5 @@
 package com.esocial.script.generator.model;
 
-import java.util.List;
 import java.util.Map;
 
 public class NewScriptDTO {
@@ -15,11 +14,9 @@ public class NewScriptDTO {
     private String autor;
     private String orcl;
     private String mssql;
-
     private String tabelaPai;
     private String nomeTabela;
     private String nomeView;
-    private List<String> campos;
     private String nomeEvento;
     private String nomeJson;
     private Map<String, String> tiposCampos;
@@ -126,14 +123,6 @@ public class NewScriptDTO {
 
     public void setNomeView(String nomeView) {
         this.nomeView = nomeView;
-    }
-
-    public List<String> getCampos() {
-        return campos;
-    }
-
-    public void setCampos(List<String> campos) {
-        this.campos = campos;
     }
 
     public String getNomeEvento() {

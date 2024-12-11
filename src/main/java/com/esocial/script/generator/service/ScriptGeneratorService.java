@@ -29,7 +29,7 @@ public class ScriptGeneratorService {
 
         script.append("<objeto>").append(dbScript.getObjeto()).append("</objeto>\n");
         script.append("<tipo>").append(dbScript.getTipo()).append("</tipo>\n");
-        if (dbScript.getOrdem() != null){
+        if (dbScript.getOrdem() != null) {
             script.append("<ordem>\n");
             dbScript.getOrdem().getApos().forEach(apos -> script.append("<apos>").append(apos).append("</apos>\n"));
             script.append("</ordem>\n");
@@ -62,10 +62,7 @@ public class ScriptGeneratorService {
         script.append("FROM (\n");
 
         script.append("    SELECT\n");
-        for (int i = 0; i < viewData.getCampos().size(); i++) {
-            String campo = viewData.getCampos().get(i);
-            String tipoCampo = viewData.getTiposCampos().getOrDefault(campo, "String"); // Tipo padrão como String
-
+        viewData.getTiposCampos().forEach((campo, tipoCampo) -> {
             String valorPadrao = tipoCampo.equalsIgnoreCase("Number") ? "0" : "' '";
 
             script.append("        CASE WHEN NVL(N.").append(campo).append(", ").append(valorPadrao)
@@ -74,7 +71,7 @@ public class ScriptGeneratorService {
                     .append("\",\"VALOROLD\":\"'||NVL(O.").append(campo).append(", ").append(valorPadrao)
                     .append(")||'\",\"VALORNEW\":\"'||NVL(N.").append(campo).append(", ").append(valorPadrao)
                     .append(")||'\"}' ELSE '' END ||\n");
-        }
+        });
         script.delete(script.length() - 3, script.length());
 
         script.append(" AS JSON\n");
@@ -90,14 +87,13 @@ public class ScriptGeneratorService {
         script.append("UNION\n");
 
         script.append("    SELECT\n");
-        for (String campo : viewData.getCampos()) {
-            String tipoCampo = viewData.getTiposCampos().getOrDefault(campo, "String");
+        viewData.getTiposCampos().forEach((campo, tipoCampo) -> {
             String valorPadrao = tipoCampo.equalsIgnoreCase("Number") ? "0" : "' '";
 
             script.append("        ', {\"COLUNA\":\"").append(campo)
                     .append("\",\"VALOROLD\":\"NAO EXISTIA\",\"VALORNEW\":\"'||NVL(N.")
                     .append(campo).append(", ").append(valorPadrao).append(")||'\"}' ||\n");
-        }
+        });
         script.delete(script.length() - 3, script.length());
 
         script.append(" AS JSON\n");
@@ -115,14 +111,13 @@ public class ScriptGeneratorService {
         script.append("UNION\n");
 
         script.append("    SELECT\n");
-        for (String campo : viewData.getCampos()) {
-            String tipoCampo = viewData.getTiposCampos().getOrDefault(campo, "String");
+        viewData.getTiposCampos().forEach((campo, tipoCampo) -> {
             String valorPadrao = tipoCampo.equalsIgnoreCase("Number") ? "0" : "' '";
 
             script.append("        ', {\"COLUNA\":\"").append(campo)
                     .append("\",\"VALOROLD\":\"'||NVL(O.").append(campo)
                     .append(", ").append(valorPadrao).append(")||'\",\"VALORNEW\":\"DELETADO\"}' ||\n");
-        }
+        });
         script.delete(script.length() - 3, script.length());
 
         script.append(" AS JSON\n");
@@ -143,8 +138,6 @@ public class ScriptGeneratorService {
         return script.toString();
     }
 
-
-
     private String generateMssqlScript(ViewData viewData) {
         StringBuilder script = new StringBuilder();
 
@@ -155,8 +148,7 @@ public class ScriptGeneratorService {
         script.append("FROM (\n");
 
         script.append("    SELECT\n");
-        for (String campo : viewData.getCampos()) {
-            String tipoCampo = viewData.getTiposCampos().getOrDefault(campo, "String");
+        viewData.getTiposCampos().forEach((campo, tipoCampo) -> {
             String valorPadrao = tipoCampo.equalsIgnoreCase("Number") ? "0" : "' '";
 
             script.append("        CASE WHEN ISNULL(N.").append(campo).append(", ").append(valorPadrao)
@@ -164,7 +156,7 @@ public class ScriptGeneratorService {
                     .append("THEN ', {\"COLUNA\":\"").append(campo)
                     .append("\",\"VALOROLD\":\"' + ISNULL(CAST(O.").append(campo).append(" AS VARCHAR(1000)), '') + ")
                     .append("'\",\"VALORNEW\":\"' + ISNULL(CAST(N.").append(campo).append(" AS VARCHAR(1000)), '') + '\"}' ELSE '' END +\n");
-        }
+        });
         script.delete(script.length() - 3, script.length());
 
         script.append(" AS JSON\n");
@@ -180,14 +172,13 @@ public class ScriptGeneratorService {
         script.append("UNION ALL\n");
 
         script.append("    SELECT\n");
-        for (String campo : viewData.getCampos()) {
-            String tipoCampo = viewData.getTiposCampos().getOrDefault(campo, "String");
+        viewData.getTiposCampos().forEach((campo, tipoCampo) -> {
             String valorPadrao = tipoCampo.equalsIgnoreCase("Number") ? "0" : "' '";
 
             script.append("        ', {\"COLUNA\":\"").append(campo)
                     .append("\",\"VALOROLD\":\"NAO EXISTIA\",\"VALORNEW\":\"' + ISNULL(CAST(N.")
                     .append(campo).append(" AS VARCHAR(1000)), ").append(valorPadrao).append(") + '\"}' +\n");
-        }
+        });
         script.delete(script.length() - 3, script.length());
 
         script.append(" AS JSON\n");
@@ -205,11 +196,11 @@ public class ScriptGeneratorService {
         script.append("UNION ALL\n");
 
         script.append("    SELECT\n");
-        for (String campo : viewData.getCampos()) {
+        viewData.getTiposCampos().forEach((campo, tipoCampo) -> {
             script.append("        ', {\"COLUNA\":\"").append(campo)
                     .append("\",\"VALOROLD\":\"' + ISNULL(CAST(O.").append(campo).append(" AS VARCHAR(1000)), '') + ")
                     .append("'\",\"VALORNEW\":\"DELETADO\"}' +\n");
-        }
+        });
         script.delete(script.length() - 3, script.length());
 
         script.append(" AS JSON\n");
@@ -229,5 +220,4 @@ public class ScriptGeneratorService {
 
         return script.toString();
     }
-
 }
