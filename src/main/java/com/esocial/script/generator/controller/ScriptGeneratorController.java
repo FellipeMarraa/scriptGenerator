@@ -36,7 +36,7 @@ public class ScriptGeneratorController {
         viewData.setNomeTabela(newScriptDTO.getNomeTabela());
         viewData.setNomeView(newScriptDTO.getNomeView());
         viewData.setNomeEvento(newScriptDTO.getNomeEvento());
-        viewData.setNomeJson(newScriptDTO.getNomeJson().replace("-", ""));
+        viewData.setNomeJson(newScriptDTO.getNomeEvento().replace("-", ""));
         viewData.setCampos(newScriptDTO.getCampos());
 
         return scriptGeneratorService.generateScript(dbScript, viewData);
