@@ -18,9 +18,9 @@ public class WebSecurityConfig {
         http
                 .cors(cors -> cors.configurationSource(request -> {
                     var corsConfig = new org.springframework.web.cors.CorsConfiguration();
-                    corsConfig.addAllowedOrigin("http://localhost:5173"); // Permitir o frontend
-                    corsConfig.addAllowedMethod("*"); // Permitir todos os métodos HTTP
-                    corsConfig.addAllowedHeader("*"); // Permitir todos os cabeçalhos
+                    corsConfig.addAllowedOrigin("*");
+                    corsConfig.addAllowedMethod("*");
+                    corsConfig.addAllowedHeader("*");
                     return corsConfig;
                 }))
                 .csrf(AbstractHttpConfigurer::disable)
