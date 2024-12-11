@@ -63,13 +63,25 @@ public class ScriptGeneratorService {
 
         script.append("    SELECT\n");
         viewData.getCampos().forEach((campo, tipoCampo) -> {
-            String valorPadrao = tipoCampo.equalsIgnoreCase("Number") ? "0" : "' '";
+            String valorPadrao;
+            String valorConversao;
+
+            if (tipoCampo.equalsIgnoreCase("number")){
+                valorConversao = "0";
+                valorPadrao = "0";
+            } else if (tipoCampo.equalsIgnoreCase("date")){
+                valorConversao = "' '";
+                valorPadrao = "SYSDATE";
+            } else{
+                valorConversao = "' '";
+                valorPadrao = "' '";
+            }
 
             script.append("        CASE WHEN NVL(N.").append(campo).append(", ").append(valorPadrao)
                     .append(") <> NVL(O.").append(campo).append(", ").append(valorPadrao).append(") ")
                     .append("THEN ', {\"COLUNA\":\"").append(campo)
-                    .append("\",\"VALOROLD\":\"'||NVL(O.").append(campo).append(", ").append(valorPadrao)
-                    .append(")||'\",\"VALORNEW\":\"'||NVL(N.").append(campo).append(", ").append(valorPadrao)
+                    .append("\",\"VALOROLD\":\"'||NVL(O.").append(campo).append(", ").append(valorConversao)
+                    .append(")||'\",\"VALORNEW\":\"'||NVL(N.").append(campo).append(", ").append(valorConversao)
                     .append(")||'\"}' ELSE '' END ||\n");
         });
         script.delete(script.length() - 3, script.length());
@@ -88,11 +100,17 @@ public class ScriptGeneratorService {
 
         script.append("    SELECT\n");
         viewData.getCampos().forEach((campo, tipoCampo) -> {
-            String valorPadrao = tipoCampo.equalsIgnoreCase("Number") ? "0" : "' '";
+            String valorConversao;
+
+            if (tipoCampo.equalsIgnoreCase("number")){
+                valorConversao = "0";
+            } else{
+                valorConversao = "' '";
+            }
 
             script.append("        ', {\"COLUNA\":\"").append(campo)
                     .append("\",\"VALOROLD\":\"NAO EXISTIA\",\"VALORNEW\":\"'||NVL(N.")
-                    .append(campo).append(", ").append(valorPadrao).append(")||'\"}' ||\n");
+                    .append(campo).append(", ").append(valorConversao).append(")||'\"}' ||\n");
         });
         script.delete(script.length() - 3, script.length());
 
@@ -112,11 +130,17 @@ public class ScriptGeneratorService {
 
         script.append("    SELECT\n");
         viewData.getCampos().forEach((campo, tipoCampo) -> {
-            String valorPadrao = tipoCampo.equalsIgnoreCase("Number") ? "0" : "' '";
+            String valorConversao;
+
+            if (tipoCampo.equalsIgnoreCase("number")){
+                valorConversao = "0";
+            } else{
+                valorConversao = "' '";
+            }
 
             script.append("        ', {\"COLUNA\":\"").append(campo)
                     .append("\",\"VALOROLD\":\"'||NVL(O.").append(campo)
-                    .append(", ").append(valorPadrao).append(")||'\",\"VALORNEW\":\"DELETADO\"}' ||\n");
+                    .append(", ").append(valorConversao).append(")||'\",\"VALORNEW\":\"DELETADO\"}' ||\n");
         });
         script.delete(script.length() - 3, script.length());
 
@@ -149,7 +173,13 @@ public class ScriptGeneratorService {
 
         script.append("    SELECT\n");
         viewData.getCampos().forEach((campo, tipoCampo) -> {
-            String valorPadrao = tipoCampo.equalsIgnoreCase("Number") ? "0" : "' '";
+            String valorPadrao;
+
+            if (tipoCampo.equalsIgnoreCase("number")){
+                valorPadrao = "0";
+            } else{
+                valorPadrao = "' '";
+            }
 
             script.append("        CASE WHEN ISNULL(N.").append(campo).append(", ").append(valorPadrao)
                     .append(") <> ISNULL(O.").append(campo).append(", ").append(valorPadrao).append(") ")
@@ -172,13 +202,9 @@ public class ScriptGeneratorService {
         script.append("UNION ALL\n");
 
         script.append("    SELECT\n");
-        viewData.getCampos().forEach((campo, tipoCampo) -> {
-            String valorPadrao = tipoCampo.equalsIgnoreCase("Number") ? "0" : "' '";
-
-            script.append("        ', {\"COLUNA\":\"").append(campo)
-                    .append("\",\"VALOROLD\":\"NAO EXISTIA\",\"VALORNEW\":\"' + ISNULL(CAST(N.")
-                    .append(campo).append(" AS VARCHAR(1000)), ").append(valorPadrao).append(") + '\"}' +\n");
-        });
+        viewData.getCampos().forEach((campo, tipoCampo) -> script.append("        ', {\"COLUNA\":\"").append(campo)
+                .append("\",\"VALOROLD\":\"NAO EXISTIA\",\"VALORNEW\":\"' + ISNULL(CAST(N.")
+                .append(campo).append(" AS VARCHAR(1000)), ' ') + '\"}' +\n"));
         script.delete(script.length() - 3, script.length());
 
         script.append(" AS JSON\n");
@@ -198,7 +224,7 @@ public class ScriptGeneratorService {
         script.append("    SELECT\n");
         viewData.getCampos().forEach((campo, tipoCampo) -> {
             script.append("        ', {\"COLUNA\":\"").append(campo)
-                    .append("\",\"VALOROLD\":\"' + ISNULL(CAST(O.").append(campo).append(" AS VARCHAR(1000)), '') + ")
+                    .append("\",\"VALOROLD\":\"' + ISNULL(CAST(O.").append(campo).append(" AS VARCHAR(1000)), ' ') + ")
                     .append("'\",\"VALORNEW\":\"DELETADO\"}' +\n");
         });
         script.delete(script.length() - 3, script.length());
