@@ -18,9 +18,9 @@ public class WebSecurityConfig {
         http
                 .cors(cors -> cors.configurationSource(request -> {
                     var corsConfig = new org.springframework.web.cors.CorsConfiguration();
-                    corsConfig.addAllowedOrigin("*");
-                    corsConfig.addAllowedMethod("*");
-                    corsConfig.addAllowedHeader("*");
+                    corsConfig.addAllowedOrigin("https://script-generator-rust.vercel.app"); // Permitir o frontend
+                    corsConfig.addAllowedMethod("*"); // Permitir todos os métodos HTTP
+                    corsConfig.addAllowedHeader("*"); // Permitir todos os cabeçalhos
                     return corsConfig;
                 }))
                 .csrf(AbstractHttpConfigurer::disable)
@@ -36,7 +36,7 @@ public class WebSecurityConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("*")
+                        .allowedOrigins("https://script-generator-rust.vercel.app")
                         .allowedMethods("*")
                         .allowedHeaders("*");
             }
