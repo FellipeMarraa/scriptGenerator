@@ -26,7 +26,7 @@ public class ScriptGeneratorController {
         dbScript.setTipo("VIEW");
         dbScript.setOrdem(newScriptDTO.getOrdem());
         dbScript.setTabela("");
-        dbScript.setObjetivo("CRIAR - " + viewData.getNomeView());
+        dbScript.setObjetivo("CRIAR - " + newScriptDTO.getNomeView());
         dbScript.setExecutar("SE_NAO_EXISTIR");
         dbScript.setAutor(newScriptDTO.getAutor());
         dbScript.setOrcl(null);
