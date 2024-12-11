@@ -62,7 +62,7 @@ public class ScriptGeneratorService {
         script.append("FROM (\n");
 
         script.append("    SELECT\n");
-        viewData.getTiposCampos().forEach((campo, tipoCampo) -> {
+        viewData.getCampos().forEach((campo, tipoCampo) -> {
             String valorPadrao = tipoCampo.equalsIgnoreCase("Number") ? "0" : "' '";
 
             script.append("        CASE WHEN NVL(N.").append(campo).append(", ").append(valorPadrao)
@@ -87,7 +87,7 @@ public class ScriptGeneratorService {
         script.append("UNION\n");
 
         script.append("    SELECT\n");
-        viewData.getTiposCampos().forEach((campo, tipoCampo) -> {
+        viewData.getCampos().forEach((campo, tipoCampo) -> {
             String valorPadrao = tipoCampo.equalsIgnoreCase("Number") ? "0" : "' '";
 
             script.append("        ', {\"COLUNA\":\"").append(campo)
@@ -111,7 +111,7 @@ public class ScriptGeneratorService {
         script.append("UNION\n");
 
         script.append("    SELECT\n");
-        viewData.getTiposCampos().forEach((campo, tipoCampo) -> {
+        viewData.getCampos().forEach((campo, tipoCampo) -> {
             String valorPadrao = tipoCampo.equalsIgnoreCase("Number") ? "0" : "' '";
 
             script.append("        ', {\"COLUNA\":\"").append(campo)
@@ -148,7 +148,7 @@ public class ScriptGeneratorService {
         script.append("FROM (\n");
 
         script.append("    SELECT\n");
-        viewData.getTiposCampos().forEach((campo, tipoCampo) -> {
+        viewData.getCampos().forEach((campo, tipoCampo) -> {
             String valorPadrao = tipoCampo.equalsIgnoreCase("Number") ? "0" : "' '";
 
             script.append("        CASE WHEN ISNULL(N.").append(campo).append(", ").append(valorPadrao)
@@ -172,7 +172,7 @@ public class ScriptGeneratorService {
         script.append("UNION ALL\n");
 
         script.append("    SELECT\n");
-        viewData.getTiposCampos().forEach((campo, tipoCampo) -> {
+        viewData.getCampos().forEach((campo, tipoCampo) -> {
             String valorPadrao = tipoCampo.equalsIgnoreCase("Number") ? "0" : "' '";
 
             script.append("        ', {\"COLUNA\":\"").append(campo)
@@ -196,7 +196,7 @@ public class ScriptGeneratorService {
         script.append("UNION ALL\n");
 
         script.append("    SELECT\n");
-        viewData.getTiposCampos().forEach((campo, tipoCampo) -> {
+        viewData.getCampos().forEach((campo, tipoCampo) -> {
             script.append("        ', {\"COLUNA\":\"").append(campo)
                     .append("\",\"VALOROLD\":\"' + ISNULL(CAST(O.").append(campo).append(" AS VARCHAR(1000)), '') + ")
                     .append("'\",\"VALORNEW\":\"DELETADO\"}' +\n");

@@ -9,7 +9,7 @@ public class ViewData {
     private String nomeView;
     private String nomeEvento;
     private String nomeJson;
-    private Map<String, String> tiposCampos; // Adicionado: Mapa de tipos dos campos
+    private Map<String, String> campos; // Adicionado: Mapa de tipos dos campos
 
     // Getters e Setters
     public String getTabelaPai() {
@@ -52,11 +52,11 @@ public class ViewData {
         this.nomeJson = nomeJson;
     }
 
-    public Map<String, String> getTiposCampos() {
-        return tiposCampos;
+    public Map<String, String> getCampos() {
+        return campos;
     }
 
-    public void setTiposCampos(Map<String, String> tiposCampos) {
-        this.tiposCampos = tiposCampos;
+    public void setCampos(Map<String, String> campos) {
+        this.campos = campos;
     }
 }

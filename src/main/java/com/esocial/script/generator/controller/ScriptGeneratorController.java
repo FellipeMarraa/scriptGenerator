@@ -22,22 +22,22 @@ public class ScriptGeneratorController {
         ViewData viewData = new ViewData();
 
         dbScript.setNumos(newScriptDTO.getNumos());
-        dbScript.setObjeto(newScriptDTO.getObjeto());
-        dbScript.setTipo(newScriptDTO.getTipo());
+        dbScript.setObjeto(newScriptDTO.getNomeView());
+        dbScript.setTipo("VIEW");
         dbScript.setOrdem(newScriptDTO.getOrdem());
         dbScript.setTabela("");
-        dbScript.setObjetivo(newScriptDTO.getObjetivo());
+        dbScript.setObjetivo("CRIAR - " + viewData.getNomeView());
         dbScript.setExecutar(newScriptDTO.getExecutar());
         dbScript.setAutor(newScriptDTO.getAutor());
-        dbScript.setOrcl(newScriptDTO.getOrcl());
-        dbScript.setMssql(newScriptDTO.getMssql());
+        dbScript.setOrcl(null);
+        dbScript.setMssql(null);
 
         viewData.setTabelaPai(newScriptDTO.getTabelaPai());
         viewData.setNomeTabela(newScriptDTO.getNomeTabela());
         viewData.setNomeView(newScriptDTO.getNomeView());
         viewData.setNomeEvento(newScriptDTO.getNomeEvento());
-        viewData.setNomeJson(newScriptDTO.getNomeJson());
-        viewData.setTiposCampos(newScriptDTO.getTiposCampos());
+        viewData.setNomeJson(newScriptDTO.getNomeJson().replace("-", ""));
+        viewData.setCampos(newScriptDTO.getCampos());
 
         return scriptGeneratorService.generateScript(dbScript, viewData);
     }
@@ -63,7 +63,7 @@ public class ScriptGeneratorController {
         viewData.setNomeView(newScriptDTO.getNomeView());
         viewData.setNomeEvento(newScriptDTO.getNomeEvento());
         viewData.setNomeJson(newScriptDTO.getNomeJson());
-        viewData.setTiposCampos(newScriptDTO.getTiposCampos());
+        viewData.setCampos(newScriptDTO.getCampos());
 
         try {
             scriptGeneratorService.saveToFile(dbScript, viewData);

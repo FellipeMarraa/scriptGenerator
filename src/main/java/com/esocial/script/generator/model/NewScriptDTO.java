@@ -19,7 +19,7 @@ public class NewScriptDTO {
     private String nomeView;
     private String nomeEvento;
     private String nomeJson;
-    private Map<String, String> tiposCampos;
+    private Map<String, String> campos;
 
     public String getNumos() {
         return numos;
@@ -141,11 +141,11 @@ public class NewScriptDTO {
         this.nomeJson = nomeJson;
     }
 
-    public Map<String, String> getTiposCampos() {
-        return tiposCampos;
+    public Map<String, String> getCampos() {
+        return campos;
     }
 
-    public void setTiposCampos(Map<String, String> tiposCampos) {
-        this.tiposCampos = tiposCampos;
+    public void setCampos(Map<String, String> campos) {
+        this.campos = campos;
     }
 }
