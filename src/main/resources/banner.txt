@@ -4,5 +4,5 @@
 .-'    \ `--.|  |   |  || '-' '  |  |   ' '-' '\   --.|  ||  \   --.|  |  \ '-'  |  |  |  ' '-' '|  |    
 `-----' `---'`--'   `--'|  |-'   `--'   .`-  /  `----'`--''--'`----'`--'   `--`--'  `--'   `---' `--'    
                         `--'            `---'                                                            
-Powered by Fellipe Marra & Sillas Vinicius
-Sankhya developers
+Powered by Fellipe Marra
+Sankhya developer
